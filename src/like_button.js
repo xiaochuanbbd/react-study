@@ -80,23 +80,39 @@
 //     }
 
 // }
-class Weather extends React.Component{
+// class Weather extends React.Component{
     
-   constructor(porps){
-       super(porps)
-       this.state = {
-           isHot:true,wind:'微风'
-       }
-       this.changeHot = this.changeHot.bind(this)
-   }
-   render() {
-       const {isHot,wind} =  this.state 
-       return (<h1 onClick={ this.changeHot}>今天天气很{ isHot?'炎热':'寒冷'},{wind}</h1>)
-   }
-   changeHot( ){
-       this.setState({isHot:!this.state.isHot})
-      
-   }
+//    constructor(porps){
+//        super(porps)
+//    }
+//    state = { isHot:true,wind:'微风'}
+//    render() {
+//        const {isHot,wind} =  this.state 
+//        return (<h1 onClick={  this.changeHot}>今天天气很{ isHot?'炎热':'寒冷'},{wind}</h1>)
+//    }
+//    changeHot = ( )=>{
+//        console.log(this);
+//        this.setState({isHot:!this.state.isHot})
+//    }
+
+// }
+// ReactDOM.render(<Weather/>,document.getElementById('root') )
+class Person extends React.Component{
+     constructor(props){
+         super(props)
+     }
+    render(h) {
+        console.log(this);
+        let {name,age} = this.props
+        return (
+            <ul>
+                <li>姓名：{name}</li>
+                <li>年龄：{age}</li>
+                {/* <li>性别{this.props.age}</li> */}
+            </ul>
+        )
+    }
 
 }
-ReactDOM.render(<Weather/>,document.getElementById('root') )
+let obj = {name:'tom',age:19}
+ReactDOM.render(<Person {...obj}/>,document.getElementById('root'))

@@ -80,6 +80,23 @@
 //     }
 
 // }
+// class Weather extends React.Component{
+
+//    constructor(porps){
+//        super(porps)
+//    }
+//    state = { isHot:true,wind:'微风'}
+//    render() {
+//        const {isHot,wind} =  this.state 
+//        return (<h1 onClick={  this.changeHot}>今天天气很{ isHot?'炎热':'寒冷'},{wind}</h1>)
+//    }
+//    changeHot = ( )=>{
+//        console.log(this);
+//        this.setState({isHot:!this.state.isHot})
+//    }
+
+// }
+// ReactDOM.render(<Weather/>,document.getElementById('root') )
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -89,45 +106,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Weather = function (_React$Component) {
-    _inherits(Weather, _React$Component);
+var Person = function (_React$Component) {
+    _inherits(Person, _React$Component);
 
-    function Weather(porps) {
-        _classCallCheck(this, Weather);
+    function Person(props) {
+        _classCallCheck(this, Person);
 
-        var _this = _possibleConstructorReturn(this, (Weather.__proto__ || Object.getPrototypeOf(Weather)).call(this, porps));
-
-        _this.state = {
-            isHot: true, wind: '微风'
-        };
-        _this.changeHot = _this.changeHot.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (Person.__proto__ || Object.getPrototypeOf(Person)).call(this, props));
     }
 
-    _createClass(Weather, [{
+    _createClass(Person, [{
         key: 'render',
-        value: function render() {
-            var _state = this.state,
-                isHot = _state.isHot,
-                wind = _state.wind;
+        value: function render(h) {
+            console.log(this);
+            var _props = this.props,
+                name = _props.name,
+                age = _props.age;
 
             return React.createElement(
-                'h1',
-                { onClick: this.changeHot },
-                '\u4ECA\u5929\u5929\u6C14\u5F88',
-                isHot ? '炎热' : '寒冷',
-                ',',
-                wind
+                'ul',
+                null,
+                React.createElement(
+                    'li',
+                    null,
+                    '\u59D3\u540D\uFF1A',
+                    name
+                ),
+                React.createElement(
+                    'li',
+                    null,
+                    '\u5E74\u9F84\uFF1A',
+                    age
+                )
             );
-        }
-    }, {
-        key: 'changeHot',
-        value: function changeHot() {
-            this.setState({ isHot: !this.state.isHot });
         }
     }]);
 
-    return Weather;
+    return Person;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Weather, null), document.getElementById('root'));
+var obj = { name: 'tom', age: 19 };
+ReactDOM.render(React.createElement(Person, obj), document.getElementById('root'));

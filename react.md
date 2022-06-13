@@ -1,3 +1,4 @@
+babel翻译:npx babel --watch src --out-dir . --presets react-app/prod
 # 基础部分
 ## react特点
  1. 组件化模式，声明式编码
@@ -141,7 +142,23 @@ class Weather extends React.Component{
 }
 ```
 state的简写方式
+*  所有在class 定义的组件自定义的方法需要写成：赋值语句+箭头函数（这样是将方法 绑定在实例上，箭头函数中的this不会丢失，指向实哩对象）
 
 
-
-
+### props 
+* {...props} 传输，从this.props中拿
+* 默认值设置，类型设置
+ps: react 16版本之后放在了propType.js中拿(之前是放在React.PropTypes中获取)
+```js
+// 类型设置 给类本身添加
+staic propTypes = {
+  name:PropTypes.string.isRequired//必填
+  age:PropTypes.string
+  sex:PropTypes.
+}
+// 默认值设置
+staic defaultProps = {
+  sex:'女'
+}
+```
+* props是只读的会报错，只可以运算不可以修改

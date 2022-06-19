@@ -97,8 +97,156 @@
 
 // }
 // ReactDOM.render(<Weather/>,document.getElementById('root') )
+// class Person extends React.Component{
+//      constructor(props){
+//          super(props)
+//      }
+//     render(h) {
+//         console.log(this);
+//         let {name,age} = this.props
+//         return (
+//             <ul>
+//                 <li>姓名：{name}</li>
+//                 <li>年龄：{age}</li>
+//                 {/* <li>性别{this.props.age}</li> */}
+//             </ul>
+//         )
+//     }
+
+// }
+// let obj = {name:'tom',age:19}
+// ReactDOM.render(<Person {...obj}/>,document.getElementById('root'))
+// class Demo extends React.Component{
+//     myRef =  React.createRef()
+//     render(){
+//         return (
+//             <div>
+//                 {/* <input ref={(input)=>{this.input1 = input}} type="text" placeholder="点击按钮提示数据"/>  */}
+//                 <input ref={this.myRef} type="text" placeholder="点击按钮提示数据"/>
+//                 <button  onClick={this.showData}>点我失去左侧的数据</button>
+//                 <input   ref={(input)=>{this.input2 = input}} onBlur={this.showData2}  type="text" placeholder="失去焦点提示数据"/> 
+//             </div>
+//         )
+//     }
+//     saveinput=(input)=>{
+//     this.input1 = input
+//     }
+//     showData=()=>{
+//         console.log(this.myRef.current.value);
+//     }
+//     showData2=()=>{
+//         const {input2}  = this
+//         alert(input2.value)
+//     }
+// }
+// ReactDOM.render(<Demo/>,document.getElementById('root'))
+// class Login extends React.Component {
+//     state={
+//      username:"",
+//      password:""
+//     }
+//     render() {
+//         return (
+//             <form  onSubmit={this.handlersumbit}>
+//             用户名：<input type="text" onChange={this.saveFormdate('username')} ref={c=>this.username=c} name="username"/>
+//             密码：<input type="password"  onChange={this.saveFormdate('username')}  ref={c=>this.password=c}  name="password"/>
+//                <button>登录</button>
+//              </form>
+//         )
+//     }
+//     saveFormdate=(type)=>{
+//         return (e)=>{
+//             this.setState({
+//                 [type]:e.target.value
+//                 })
+//         }
+
+//     }
+
+//     handlersumbit = (e) => { 
+//         e.preventDefault();
+//         const {
+//             password,
+//             username
+//         } = this.state
+//         console.log(111,password,username);
+//     }
+// }
+// ReactDOM.render( <Login/> , document.getElementById('root'))
+// class Lift extends React.Component{
+//     state={opacity:1}
+//     //render调用时机：初始化渲染。状态更新之后
+//     render(h) { 
+//         console.log(123); 
+//         return (
+//             <div>
+//                 <h2 style={{opacity:this.state.opacity}}>react学不会</h2>
+//                 <button onClick={this.death}>不活了</button>
+//             </div>
+//         )
+//     }
+//     death=()=>{
+//         ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+//     }
+//     //在生命周期 组件完成挂载调用
+//     componentDidMount(){
+//         let {opacity}= this.state
+
+//        this.timer=  setInterval(() => {
+//             opacity -= 0.1
+//             if(opacity <= 0) opacity = 1
+//             this.setState({opacity})
+//         }, 200);
+//     }
+//     //组件将要卸载时候掉用
+//     componentWillUnmount(){
+//         clearInterval(this.timer)
+//     }
+// }
+// ReactDOM.render( <Lift/> , document.getElementById('root'))
+
+// class Count extends React.Component{
+//     constructor(props){
+//         console.log('constructor');
+
+//         super(props)
+//         this.state={count:0}
+//     }
+//      static getDerivedStateFromProps(){
+//         console.log('getDerivedStateFromProps');
+//         return null
+//      }
+//     componentDidMount(){
+//         console.log('componentDidMount');
+//     }
+//     shouldComponentUpdate(){
+//         console.log('shouldComponentUpdate');
+//         return true 
+//     }
+
+//     componentDidUpdate(){
+//         console.log('componentDidUpdate');
+//     }
+
+//     render(){
+//         console.log('render');
+
+//         return (
+//             <div>
+//                 <h2>当前求和为{this.state.count}</h2>
+//                 <button onClick={this.add}>+1</button>
+//             </div>
+//         )
+//     }
+//     add=()=>{
+//         this.setState({count:this.state.count+1})
+//     }
+// }
+// ReactDOM.render( <Count/> , document.getElementById('root'))
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -106,44 +254,65 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Person = function (_React$Component) {
-    _inherits(Person, _React$Component);
+var Demo = function (_React$Component) {
+    _inherits(Demo, _React$Component);
 
-    function Person(props) {
-        _classCallCheck(this, Person);
+    function Demo() {
+        var _ref;
 
-        return _possibleConstructorReturn(this, (Person.__proto__ || Object.getPrototypeOf(Person)).call(this, props));
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, Demo);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Demo.__proto__ || Object.getPrototypeOf(Demo)).call.apply(_ref, [this].concat(args))), _this), _this.state = { newList: [] }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
-    _createClass(Person, [{
+    _createClass(Demo, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            setInterval(function () {
+                var newList = _this2.state.newList;
+
+                var news = '新闻' + (newList.length + 1);
+                _this2.setState({ newList: [news].concat(_toConsumableArray(newList)) });
+            }, 1000);
+        }
+    }, {
+        key: 'getSnapshotBeforeUpdate',
+        value: function getSnapshotBeforeUpdate() {
+            return this.refs.list.scrollHeight;
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(preprops, prestate, height) {
+            this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+        }
+    }, {
         key: 'render',
-        value: function render(h) {
-            console.log(this);
-            var _props = this.props,
-                name = _props.name,
-                age = _props.age;
+        value: function render() {
+            var newList = this.state.newList;
 
             return React.createElement(
-                'ul',
-                null,
-                React.createElement(
-                    'li',
-                    null,
-                    '\u59D3\u540D\uFF1A',
-                    name
-                ),
-                React.createElement(
-                    'li',
-                    null,
-                    '\u5E74\u9F84\uFF1A',
-                    age
-                )
+                'div',
+                { className: 'list-warp', ref: 'list' },
+                newList.map(function (n, index) {
+                    return React.createElement(
+                        'div',
+                        { className: 'list', key: index },
+                        n
+                    );
+                })
             );
         }
     }]);
 
-    return Person;
+    return Demo;
 }(React.Component);
 
-var obj = { name: 'tom', age: 19 };
-ReactDOM.render(React.createElement(Person, obj), document.getElementById('root'));
+ReactDOM.render(React.createElement(Demo, null), document.getElementById('root'));

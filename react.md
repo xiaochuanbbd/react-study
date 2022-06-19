@@ -162,3 +162,100 @@ staic defaultProps = {
 }
 ```
 * props是只读的会报错，只可以运算不可以修改
+* props简写需要将原来定义在类外面的值通过staic关键字用于class内部，给class使用
+#### props函数式组件里面是传递通过参数传递props，默认值和初始值都只写在函数的外面
+
+### refs
+* 字符串形式的ref（最简单）
+* 回调形式的ref,参数是这个ref所在的dom节点，内联在jsx中
+  * 回调形式的ref，执行次数的问题：
+    至少执行一次（render时候调用一次）
+    更新时候会调用两次
+```js
+    <input ref={(input)=>{this.input1 = input}} type="text" placeholder="点击按钮提示数据"/> 
+```
+* 定义class绑定的函数。只会执行一次
+```js
+    <input ref={this.saveinput} type="text" placeholder="点击按钮提示数据"/>
+```
+
+#### createRef
+* 一次只能存储一个dom节点
+* 创建一个用于一个
+设置  myRef =  React.createRef()
+读取： this.myRef.current.xxx
+
+
+## react 中的事件处理
+* 通过onXxx属性指定时间处理函数 
+  * react使用的自定义合成的事件。 并不是原生的dom事件
+  * react中的时间是通过事件委托方式处理的，委托给组件最外层的元素， 为了高效
+* event.target 获取发生事件的目标元素
+
+## 函数柯理化
+* 通过函数调用继续返回函数的方式，实现多次接受参数最后统一处理的函数编码形式
+```js
+onChange={this.saveFormdate('username')}//将一个函数给onchange作为回调
+ saveFormdate=(type)=>{ 
+        return (e)=>{//返回的新函数
+            this.setState({
+                [type]:e.target.value
+                })
+        }
+      
+    }
+```
+* 高阶函数：
+  * 接受的参数是一个函数，
+  * 调用的返回值是一个函数
+常见的高阶函数：
+  * promise，setTimeout, arr.map()
+
+## 生命周期
+### 旧版本：
+* componentWillMount  组件将要被挂载
+* componentDidMount() 在生命周期 组件完成挂载调用 （常用）操作：开启定时器发送网络请求，订阅消息等此方法是服务端渲染唯一会调用的生命周期函数。
+*  render() 初始化渲染。状态更新之后（必须要用）
+* shouldComponentUpdate() 组件是否要被更新，控制组件被更新的阀门。必须写返回值：true/false。false表示都不更新
+* componentWillUpdate 组件将要被更新
+* componentDidUpdate(preprops,prestate)) 组件更新完毕 preprops之前的props prestate：之前的state
+* componentWillReceiveProps  组件将要接受新的props时候 第一次不算
+* componentWillUnmount() 组件将要卸载时候掉用（常用）操作： 关闭定时器， 取消订阅消息
+ 
+
+#### 执行顺序：
+##### 挂载时：
+1. constructor
+2. componentWillMount
+3. render
+4. componentDidMount
+##### 更新时：
+###### setUpdate:
+1. shouldComponentUpdate
+2. componentWillUpdate
+3. componentDidUpdate
+###### foreUpdate() 强制更新
+1. componentWillUpdate
+2. componentDidUpdate
+###### 父组件render，子组件更新：
+1. componentWillReceiveProps
+2. shouldComponentUpdate
+3. componentWillUpdate
+4. componentDidUpdate
+##### 卸载时： 
+1. componentWillUnmount
+### 新版本：
+#### 新增：
+* getDerivedStateFromProps(porps,state) 即 state 的值在任何时候都取决于 props 。特殊情况才使用，了解即可
+* getSnapshotBeforeUpdate(){return :xxx}  更新前获取的快照此用法并不常见，但它可能出现在 UI 处理中，如需要以特殊方式处理滚动位置的聊天线程等。 xxx会传给componentDidUpdate
+#### 废弃：
+* componentWillMount ==> UNSAFE_componentWillMount
+* componentWillUpdate ==>UNSAFE_componentWillUpdate
+* componentWillReceiveProps ==> UNSAFE_componentWillReceiveProps
+#### 更新
+当组件的 props 或 state 发生变化时会触发更新。组件更新的生命周期调用顺序如下：
+1. static getDerivedStateFromProps()
+2. shouldComponentUpdate()
+3. render()
+4. getSnapshotBeforeUpdate()
+5. componentDidUpdate(preprops,prestate) preprops之前的props prestate：之前的state

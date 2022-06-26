@@ -36,7 +36,14 @@ babel翻译:npx babel --watch src --out-dir . --presets react-app/prod
     * 小写字母， 标签改为html标签，html没有就报错
     * 大写字母 react渲染对应的组件，找不到报错
 
-## react 18 更新 ReactDOM.render
+## react 18 更新 ReactDOM.render，以后绑定dom
+```js
+// After
+import { createRoot } from 'react-dom/client';
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App   />);
+```
 
 ## react定义组件
 ### 函数式组件（无状态 state）
@@ -259,3 +266,83 @@ onChange={this.saveFormdate('username')}//将一个函数给onchange作为回调
 3. render()
 4. getSnapshotBeforeUpdate()
 5. componentDidUpdate(preprops,prestate) preprops之前的props prestate：之前的state
+
+### 重要的钩子
+1. render 初始化或者更新渲染时候掉用
+2. componentDidMount  开启监听如：ajax
+3. componentWillUnmount  即将卸载的钩子
+
+
+
+## diff算法
+原理：
+react进行新虚拟dom和旧虚拟dom的diff比较
+比较规则：
+1. 有相同的key
+  1. 有新的内容直接替换
+  2. 没有新的内容不变
+2. 没有相同的key
+  1. 直接替换
+用index作为key可能会出现的问题
+1. 当需要对数据进行逆序添加，逆序删除等破坏顺序是修改时会影响格式数据错乱
+2. 性能更低，需要对虚拟dom进行全部更新
+
+## 文件
+* src/index.js
+  入口的js文件
+  ```js
+  // 检查app里的东西是否合理
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+  ```
+* index.html 应用入口文件
+* App.js app组件
+* xxx.jsx 组件名字， 引入时候可以不加后缀 ，如果交index也可以不加，js和jsx都可以不要加
+
+
+##
+### 样式模块化
+ 文件名：hello.module.css
+ 引入： impoet hello from './index.module.css'
+
+ ## react 插件
+  快速生成react的注解 ES7+ React/Redux/React-
+
+## todoList 案例
+1. 拆分组件
+2. 动态初始化列表
+3. 父子组件通信
+   1. 父向子： props
+   2. 子向父： 父组件定义一个函数，通过props传递给子组件 子组件通过调用函数传参数的形式修改数据
+4. checked 和defualtChecked区别 defualtChecked第一次才执行
+5. 在状态（数据定义的地方）修改状态（定义函数）
+6. 状态提升：将数据定义在共同的父组件
+## 组件通信方式
+* 父向子
+ props
+* 子修改父组件的
+使用父组件定义函数传递给子组件修改数据,状态在哪里，操作的状态的就在哪里
+
+
+## react 配置代理
+1. 在pageage.json中 书写： "proxy":"http://localtion:3000"
+2. src/setupProxy.js配置（webpack自动读取）
+```js
+const {createProxyMiddleware: proxy} =require('http-proxy-middleware');
+// 暴露一个module出去
+module.exports = function (app){
+    app.use(
+        proxy('/api1',{//apis遇见这个前缀请求就是会走代理
+           target:'http://localhost:5001',
+           changeOrigin:true,// 控制服务器收到的请求头host字段的值，让服务器以为是自己的端口发的请求
+            pathRewrite: {'^/api1': '',},//重写请求路径
+        }),
+        proxy('/api2',{
+            target:'http://localhost:5002',
+            changeOrigin:true,
+            pathRewrite: {'^/api2': '',},
+        }),
+    )
+}
+```

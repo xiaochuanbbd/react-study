@@ -272,6 +272,7 @@ onChange={this.saveFormdate('username')}//将一个函数给onchange作为回调
 2. componentDidMount  开启监听如：ajax
 3. componentWillUnmount  即将卸载的钩子
 
+## 组合继承
 
 
 ## diff算法
@@ -346,3 +347,28 @@ module.exports = function (app){
     )
 }
 ```
+
+##  react hooks
+状态是什么
+状态机：数据 + 改变状态的行为 
+比如： 点赞数是怎么增加的
+
+### 什么是hooks
+描述状态后的行为
+一个视图，使用了hooks1 hooks2 等
+
+### 状态useState()
+精简代码，使用js函数的方式抛弃class
+* useState不能出现在if判断当中
+
+### 作用Effect
+useEffect (deps) 本质是一个函数调用
+依赖【变化】变化的作用，如传入state， 就是依赖state数据变化的作用，即每次state更新就会执行，创建一个新的uesEffect函数，如传入空，那么只会执行一次
+* return 的地方会在组件销毁时候关闭
+
+## 上下文 createContext()
+
+
+
+
+
